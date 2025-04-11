@@ -1,0 +1,10 @@
+[custom.all.idris2-streams-fahrenheit]
+type = "local"
+path = "."
+ipkg = "idris2-streams-fahrenheit.ipkg"
+test = "test/test.ipkg"
+
+[custom.all.idris2-streams-fahrenheit-test]
+type = "local"
+path = "test"
+ipkg = "test.ipkg"
