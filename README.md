@@ -1,6 +1,6 @@
 # streaming-benchmarks
 
-Benchmarks for streaming Idris2 (`idris2-streams`) and Haskell (`conduit`, `pipes`).
+Benchmarks for streaming libraries in Idris2 (`idris2-streams`) and Haskell (`conduit`, `pipes`).
 
 | Benchmark             | Link                         |
 | --------------------- | ---------------------------- |
