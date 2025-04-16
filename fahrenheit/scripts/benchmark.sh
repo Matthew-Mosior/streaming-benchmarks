@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -euo pipefail
+set -euo pipefail
 
 # Default number of runs
 DEFAULT_RUNS=20
@@ -68,6 +68,12 @@ get_os_info() {
 # Set output file
 OUTPUT_FILE="../README.md"
 
+# Build projects
+cd ../idris2-streams-fahrenheit && pack build
+cd ../haskell-conduit-fahrenheit && stack build
+cd ../haskell-pipes-fahrenheit && stack build
+cd ../scripts
+
 # Initialize the output markdown file
 echo "# Introduction" > "$OUTPUT_FILE"
 echo "" >> "$OUTPUT_FILE"
@@ -75,7 +81,7 @@ echo "The following benchmarking data was generated via the \`benchmark.sh\` bas
 echo "" >> "$OUTPUT_FILE"
 echo "This benchmark requires [hyperfine](https://github.com/sharkdp/hyperfine)." >> "$OUTPUT_FILE"
 echo "" >> "$OUTPUT_FILE"
-echo "These benchmarks perform 20 runs per command." >> "$OUTPUT_FILE"
+echo "These benchmarks perform 20 runs per command (converting fahrenheit to celsius)." >> "$OUTPUT_FILE"
 echo "" >> "$OUTPUT_FILE"
 echo "# Test Data" >> "$OUTPUT_FILE"
 echo "" >> "$OUTPUT_FILE"
