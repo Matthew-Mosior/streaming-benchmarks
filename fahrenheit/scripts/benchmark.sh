@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
+#set -euo pipefail
 
 # Default number of runs
 DEFAULT_RUNS=20
@@ -52,17 +52,35 @@ get_ghc_version_stack_pipes_md() {
 
 # Output cpu info
 get_cpu_info() {
-  echo -n "CPU: $( grep -m1 "model name" /proc/cpuinfo | cut -d ':' -f2- | sed 's/^ *//' 2>&1)"
+  if [[ "$(uname)" == "Darwin" ]]; then
+    echo -n "CPU: $(sysctl -n machdep.cpu.brand_string)"
+  elif [[ "$(uname)" == "Linux" ]]; then
+    echo -n "CPU: $(grep -m1 "model name" /proc/cpuinfo | cut -d ':' -f2- | sed 's/^ *//' 2>&1)"
+  else
+    echo "Unknown OS: $(uname)"
+  fi
 }
 
 # Output memory info
 get_memory_info() {
-  echo -n "RAM: $(sed -n 's/^MemTotal:[ \t]*//p' /proc/meminfo 2>&1)"
+  if [[ "$(uname)" == "Darwin" ]]; then
+    echo -n "RAM: $(sysctl -n hw.memsize)"
+  elif [[ "$(uname)" == "Linux" ]]; then
+    echo -n "RAM: $(sed -n 's/^MemTotal:[ \t]*//p' /proc/meminfo 2>&1)"
+  else
+    echo "Unknown OS: $(uname)"
+  fi
 }
 
 # Output os info
 get_os_info() {
-  echo -n "OS: $(grep ^PRETTY_NAME= /etc/os-release | cut -d= -f2- | tr -d '"' 2>&1)"
+  if [[ "$(uname)" == "Darwin" ]]; then
+    echo -n "OS: $(sw_vers -productName)" "$(sw_vers -productVersion)"
+  elif [[ "$(uname)" == "Linux" ]]; then
+    echo -n "OS: $(grep ^PRETTY_NAME= /etc/os-release | cut -d= -f2- | tr -d '"' 2>&1)"
+  else
+    echo "Unknown OS: $(uname)"
+  fi
 }
 
 # Set output file
