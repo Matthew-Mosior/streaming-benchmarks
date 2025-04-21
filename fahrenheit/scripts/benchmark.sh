@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -euo pipefail
+set -euo pipefail
 
 # Default number of runs
 DEFAULT_RUNS=20
