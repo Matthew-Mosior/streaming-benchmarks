@@ -1,0 +1,9 @@
+package idris2-streams-fahrenheit
+version = 0.1.0
+authors = "Matthew-Mosior"
+depends = base
+        , streams
+        , streams-posix
+main = Main
+executable = "idris2-streams-fahrenheit"
+sourcedir = "src"

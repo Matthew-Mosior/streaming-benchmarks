@@ -16,7 +16,7 @@ fi
 # List of size options to benchmark
 SIZES=("small" "medium" "large" "extra_large")
 
-# Resolve paths to the stack-built executables
+# Resolve paths to the stack and pack executables
 PACK_IDRIS2_STREAMS_EXEC="../idris2-streams-fahrenheit/build/exec/idris2-streams-fahrenheit"
 STACK_CONDUIT_EXEC=$(cd ../haskell-conduit-fahrenheit && stack exec which haskell-conduit-fahrenheit-exe)
 STACK_PIPES_EXEC=$(cd ../haskell-pipes-fahrenheit && stack exec which haskell-pipes-fahrenheit-exe)

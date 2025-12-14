@@ -1,4 +1,4 @@
-package idris2-streams-fahrenheit
+package idris2-streams-fahrenheit-test
 version = 0.1.0
 authors = "Matthew-Mosior"
 -- maintainers =
@@ -13,9 +13,7 @@ authors = "Matthew-Mosior"
 -- langversion
 
 -- packages to add to search path
-depends = base
-        , streams
-        , streams-posix
+depends = idris2-streams-fahrenheit
 
 -- modules to install
 -- modules =
@@ -24,7 +22,7 @@ depends = base
 main = Main
 
 -- name of executable
-executable = "idris2-streams-fahrenheit"
+executable = "idris2-streams-fahrenheit-test"
 -- opts =
 sourcedir = "src"
 -- builddir =
