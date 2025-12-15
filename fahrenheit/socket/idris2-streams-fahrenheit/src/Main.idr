@@ -62,19 +62,19 @@ convertFahrenheitToCelsius fahrenheitvalues = Prelude.do
     createFinalBS (FAndC f c) =
       append (append (fromString "Fahrenheit: ") f) (append (fromString ", Celsius: ") c)
 
-outputFahrenheitAndCelsiusBS :  (Maybe ByteString, FahrenheitAndCelsiusStream ByteString)
-                             -> FahrenheitAndCelsiusStream ByteString
-outputFahrenheitAndCelsiusBS (Nothing, _)   =
-  pure ()
-outputFahrenheitAndCelsiusBS (Just fandcbs, fahrenheitstream) =
-  cons fandcbs fahrenheitstream 
-
 toCelsius :  FahrenheitAndCelsiusStream ByteString
           -> FahrenheitAndCelsiusPull o (Maybe ByteString, FahrenheitAndCelsiusStream ByteString)
 toCelsius fs =
      breakAtSubstring pure "\r\n\r\n" fs
   |> lines
   |> convertFahrenheitToCelsius
+
+outputFahrenheitAndCelsiusBS :  (Maybe ByteString, FahrenheitAndCelsiusStream ByteString)
+                             -> FahrenheitAndCelsiusStream ByteString
+outputFahrenheitAndCelsiusBS (Nothing, _)   =
+  pure ()
+outputFahrenheitAndCelsiusBS (Just fandcbs, fahrenheitstream) =
+  cons fandcbs fahrenheitstream 
 
 echo :  FahrenheitAndCelsiusPull ByteString (Maybe ByteString, FahrenheitAndCelsiusStream ByteString)
      -> AsyncStream Poll [Errno] Void
