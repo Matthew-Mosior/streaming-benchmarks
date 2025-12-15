@@ -1,1 +1,0 @@
-(parameterize ([optimize-level 3] [compile-file-message #f]) (compile-program "/home/matthewmosior/Software/git/streaming-benchmarks/fahrenheit/socket/idris2-streams-fahrenheit/build/exec/idris2-streams-fahrenheit_app/idris2-streams-fahrenheit.ss"))
