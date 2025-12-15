@@ -27,10 +27,6 @@ data FahrenheitAndCelsiusErr : Type where
 ToBuf FahrenheitAndCelsiusErr where
   unsafeToBuf err = Right $ (fromString . show) err
 
-Interpolation FahrenheitAndCelsiusErr where
-  interpolate InvalidFahrenheitValue  = "Invalid fahrenheit value"
-  interpolate OverallStreamError      = "Overall stream error"
-
 0 FahrenheitAndCelsiusPull : Type -> Type -> Type
 FahrenheitAndCelsiusPull o r = AsyncPull Poll o [Errno,FahrenheitAndCelsiusErr] r
 
