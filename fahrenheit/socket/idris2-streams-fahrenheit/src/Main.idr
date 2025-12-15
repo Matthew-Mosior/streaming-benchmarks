@@ -20,11 +20,16 @@ addr = IP4 [127,0,0,1]
 
 data FahrenheitAndCelsiusErr : Type where
   InvalidFahrenheitValue : FahrenheitAndCelsiusErr
+  OverallStreamError : FahrenheitAndCelsiusErr
 
 %runElab derive "FahrenheitAndCelsiusErr" [Show,Eq,Ord]
 
+ToBuf FahrenheitAndCelsiusErr where
+  unsafeToBuf err = Right $ (fromString . show) err
+
 Interpolation FahrenheitAndCelsiusErr where
   interpolate InvalidFahrenheitValue  = "Invalid fahrenheit value"
+  interpolate OverallStreamError      = "Overall stream error"
 
 0 FahrenheitAndCelsiusPull : Type -> Type -> Type
 FahrenheitAndCelsiusPull o r = AsyncPull Poll o [Errno,FahrenheitAndCelsiusErr] r
@@ -37,32 +42,50 @@ record FahrenheitAndCelsius where
   fahrenheitvalue : ByteString
   celsiusvalue : ByteString
 
-convertFahrenheitToCelsius :  FahrenheitAndCelsiusPull ByteString (FahrenheitAndCelsiusStream ByteString)
-                           -> FahrenheitAndCelsiusPull o (Maybe FahrenheitAndCelsius)
-convertFahrenheitToCelsius fahrenheit = Prelude.do
-  Right (h, rem) <- C.uncons fahrenheit
-    | _ => pure Nothing
-  let celsius = case parseDouble fahrenheit of
-                  Nothing =>
-                    fromString $ show 0.0
-                  Just f  =>
-                    fromString $ show $ (f - 32.0) * (5.0/9.0)
-  pure $
-    Just (FAndC fahrenheit celsius)
+convertFahrenheitToCelsius :  FahrenheitAndCelsiusPull (List ByteString) (FahrenheitAndCelsiusStream ByteString)
+                           -> FahrenheitAndCelsiusPull o (Maybe ByteString, FahrenheitAndCelsiusStream ByteString)
+convertFahrenheitToCelsius fahrenheitvalues = Prelude.do
+  (fahrenheitandcelsius, fahrenheitstream)
+    <- foldPairE toFAndC [] fahrenheitvalues
+  pure $ (Just $ unixUnlines $ map createFinalBS fahrenheitandcelsius, fahrenheitstream)
+  where
+    toFAndC :  List FahrenheitAndCelsius
+            -> List ByteString
+            -> Either FahrenheitAndCelsiusErr (List FahrenheitAndCelsius)
+    toFAndC fandc []     =
+      Right fandc
+    toFAndC fandc (h::t) =
+      case Data.ByteString.parseDouble h of
+        Nothing =>
+          Left InvalidFahrenheitValue
+        Just f' =>
+          let c = (f' - 32.0) * (5.0 / 9.0)
+            in toFAndC (fandc ++ [FAndC (fromString $ show f') (fromString $ show c)]) t
+    createFinalBS :  FahrenheitAndCelsius
+                  -> ByteString
+    createFinalBS (FAndC f c) =
+      append (append (fromString "Fahrenheit: ") f) (append (fromString ", Celsius: ") c)
+
+outputFahrenheitAndCelsiusBS :  (Maybe ByteString, FahrenheitAndCelsiusStream ByteString)
+                             -> FahrenheitAndCelsiusStream ByteString
+outputFahrenheitAndCelsiusBS (Nothing, _)   =
+  pure ()
+outputFahrenheitAndCelsiusBS (Just fandcbs, fahrenheitstream) =
+  cons fandcbs fahrenheitstream 
 
 toCelsius :  FahrenheitAndCelsiusStream ByteString
-          -> FahrenheitAndCelsiusPull o (Maybe FahrenheitAndCelsius)
-toCelsius fahrenheitstr =
-     breakAtSubstring pure "\n" fahrenheitstr
+          -> FahrenheitAndCelsiusPull o (Maybe ByteString, FahrenheitAndCelsiusStream ByteString)
+toCelsius fs =
+     breakAtSubstring pure "\r\n\r\n" fs
+  |> lines
   |> convertFahrenheitToCelsius
 
-echo :  Socket AF_INET
-     -> FahrenheitAndCelsiusPull ByteString (Maybe FahrenheitAndCelsius)
+echo :  FahrenheitAndCelsiusPull ByteString (Maybe ByteString, FahrenheitAndCelsiusStream ByteString)
      -> AsyncStream Poll [Errno] Void
-echo cli p =
-  extractErr FahrenheitAndCelsiusErr (writeTo Stdout (p >>= toCelsius)) >>= \case
+echo p =
+  extractErr FahrenheitAndCelsiusErr (writeTo Stdout (p >>= outputFahrenheitAndCelsiusBS)) >>= \case
     Left _   =>
-         emit "Couldn't convert Fahrenheit to Celsius"
+         emit OverallStreamError
       |> writeTo Stdout
     Right () =>
       pure ()
@@ -75,7 +98,7 @@ serve cli =
     mpull $ handleErrors (\(Here x) => stderrLn "\{x}") $
          bytes cli 0xfff
       |> toCelsius
-      |> echo cli
+      |> echo
 
 covering
 echoSrv :  Bits16
