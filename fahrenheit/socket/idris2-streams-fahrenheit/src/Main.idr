@@ -71,8 +71,8 @@ toCelsius fs =
 
 outputFahrenheitAndCelsiusBS :  (Maybe ByteString, FahrenheitAndCelsiusStream ByteString)
                              -> FahrenheitAndCelsiusStream ByteString
-outputFahrenheitAndCelsiusBS (Nothing, _)   =
-  pure ()
+outputFahrenheitAndCelsiusBS (Nothing, fahrenheitstream)      =
+  fahrenheitstream
 outputFahrenheitAndCelsiusBS (Just fandcbs, fahrenheitstream) =
   cons fandcbs fahrenheitstream 
 
