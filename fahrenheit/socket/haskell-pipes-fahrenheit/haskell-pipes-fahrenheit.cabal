@@ -35,6 +35,7 @@ executable haskell-pipes-fahrenheit-exe
   build-depends:
       base >=4.7 && <5
     , bytestring
+    , network
     , pipes
     , pipes-bytestring
     , text
@@ -53,6 +54,7 @@ test-suite haskell-pipes-fahrenheit-test
   build-depends:
       base >=4.7 && <5
     , bytestring
+    , network
     , pipes
     , pipes-bytestring
     , text

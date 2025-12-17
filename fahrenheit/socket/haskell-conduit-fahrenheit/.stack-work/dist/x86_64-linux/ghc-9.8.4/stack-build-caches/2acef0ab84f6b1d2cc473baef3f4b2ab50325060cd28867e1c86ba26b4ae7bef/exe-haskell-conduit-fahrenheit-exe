@@ -1,0 +1,18 @@
+/home/matthewmosior/.ghcup/ghc/9.8.4/lib/ghc-9.8.4/lib/x86_64-linux-ghc-9.8.4/rts-1.0.2/include/ghcversion.h:
+  hash: 95162794a3bf5e6167631fdd41a509846597231d523d0f21a76713b1f801373c
+? /home/matthewmosior/Software/git/streaming-benchmarks/fahrenheit/socket/haskell-conduit-fahrenheit/.stack-work/dist/x86_64-linux/ghc-9.8.4/build/haskell-conduit-fahrenheit-exe/autogen/Paths_haskell_conduit_fahrenheit.hs
+: hash: 0b704105c7e6155dbcd91ef7761ac30391c3cfc1f863450204949eca94faf3f4
+? /home/matthewmosior/Software/git/streaming-benchmarks/fahrenheit/socket/haskell-conduit-fahrenheit/.stack-work/dist/x86_64-linux/ghc-9.8.4/build/haskell-conduit-fahrenheit-exe/autogen/cabal_macros.h
+: hash: 603a56b279178bdf51c52c5a50f4b56defed8aae889b75655aa7525acdedf5a5
+/home/matthewmosior/Software/git/streaming-benchmarks/fahrenheit/socket/haskell-conduit-fahrenheit/CHANGELOG.md:
+  hash: 176fd70fc32fbf3dbc08db464a3a347203331767f4a619d97a445034895ded6a
+/home/matthewmosior/Software/git/streaming-benchmarks/fahrenheit/socket/haskell-conduit-fahrenheit/README.md:
+  hash: 21c6bbac66290e1411e0e0cc0c64da9a2e383e7c7274fc65ae643d01928d3612
+/home/matthewmosior/Software/git/streaming-benchmarks/fahrenheit/socket/haskell-conduit-fahrenheit/app/Main.hs:
+  hash: 7534137c8fddc7e6143332258e9696aa9d4118401f3ca07518c126d7b0b2dd84
+? /home/matthewmosior/Software/git/streaming-benchmarks/fahrenheit/socket/haskell-conduit-fahrenheit/haskell-conduit-fahrenheit.cabal
+: hash: 1414b89b0f9fd3fce6a883fe44c07a56672527be6c0fa92c3e72e382c361c17f
+/home/matthewmosior/Software/git/streaming-benchmarks/fahrenheit/socket/haskell-conduit-fahrenheit/package.yaml:
+  hash: 28e67abea4eb64ffe80e209efc7762c33bad8ed9ee2bdeddb79e4107bf51cb17
+/usr/include/stdc-predef.h:
+  hash: 82975831ea2d1f95b60225f37ddd6130225f0c3de2318674cb178fea661ad87b
