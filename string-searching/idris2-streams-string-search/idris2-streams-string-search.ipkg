@@ -1,9 +1,10 @@
-package idris2-streams-fahrenheit
+package idris2-streams-string-search
 version = 0.1.0
 authors = "Matthew-Mosior"
 depends = base
         , streams
         , streams-posix
+        , stringsearch-algorithms
 main = Main
-executable = "idris2-streams-fahrenheit"
+executable = "idris2-streams-string-search"
 sourcedir = "src"

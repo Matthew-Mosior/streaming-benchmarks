@@ -1,0 +1,7 @@
+package idris2-streams-string-search-test
+version = 0.1.0
+authors = "Matthew-Mosior"
+depends = idris2-streams-string-search
+main = Main
+executable = "idris2-streams-string-search-test"
+sourcedir = "src"
