@@ -33,5 +33,9 @@ main = do
       processFile "../resources/nucleotides_large.txt"
     ["extra_large"] ->
       processFile "../resources/nucleotides_extra_large.txt"
+    ["extra_extra_large"] ->
+      processFile "../resources/nucleotides_extra_extra_large.txt"
+    ["massive"] ->
+      processFile "../resources/nucleotides_massive.txt"
     _ ->
-      die "Usage: stack exec haskell-conduit-string-search-exe [small|medium|large|extra_large]"
+      die "Usage: stack exec haskell-conduit-string-search-exe [small|medium|large|extra_large|extra_extra_large|massive]"

@@ -52,16 +52,20 @@ prog []        =
   throw EINVAL
 prog (_::size) =
   case size of
-    ["small"]       =>
+    ["small"]             =>
       search @{4096} "../resources/nucleotides_small.txt"
-    ["medium"]      =>
+    ["medium"]            =>
       search @{8192} "../resources/nucleotides_medium.txt"
-    ["large"]       =>
+    ["large"]             =>
       search @{16384} "../resources/nucleotides_large.txt"
-    ["extra_large"] =>
+    ["extra_large"]       =>
       search @{32768} "../resources/nucleotides_extra_large.txt"
-    _               =>
-      stderrLn "Usage: pack run idris2-streams-string-search.ipkg [small|medium|large|extra_large]"
+    ["extra_extra_large"] =>
+      search @{65536} "../resources/nucleotides_extra_extra_large.txt"
+    ["massive"]           =>
+      search @{131072} "../resources/nucleotides_massive.txt"
+    _                     =>
+      stderrLn "Usage: pack run idris2-streams-string-search.ipkg [small|medium|large|extra_large|extra_extra_large|massive]"
 
 covering
 main : IO ()

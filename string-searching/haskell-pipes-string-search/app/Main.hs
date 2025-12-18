@@ -35,5 +35,9 @@ main = do
       withFile "../resources/nucleotides_large.txt" ReadMode processFile
     ["extra_large"] ->
       withFile "../resources/nucleotides_extra_large.txt" ReadMode processFile
+    ["extra_extra_large"] ->
+      withFile "../resources/nucleotides_extra_extra_large.txt" ReadMode processFile
+    ["massive"] ->
+      withFile "../resources/nucleotides_massive.txt" ReadMode processFile
     _ ->
-      die "Usage: stack exec haskell-pipes-string-search-exe [small|medium|large|extra_large]"
+      die "Usage: stack exec haskell-pipes-string-search-exe [small|medium|large|extra_large|extra_extra_large|massive]"

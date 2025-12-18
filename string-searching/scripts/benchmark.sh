@@ -14,8 +14,7 @@ if ! [[ "$RUNS" =~ ^[0-9]+$ && "$RUNS" -gt 0 ]]; then
 fi
 
 # List of size options to benchmark
-SIZES=("small" "medium" "large" "extra_large")
-#SIZES=("small" "medium" "large")
+SIZES=("small" "medium" "large" "extra_large" "extra_extra_large" "massive")
 
 # Resolve paths to the stack-built executables
 PACK_IDRIS2_STREAMS_EXEC="../idris2-streams-string-search/build/exec/idris2-streams-string-search"
@@ -114,6 +113,8 @@ echo "| \`small\` | \`1000\` |" >> "$OUTPUT_FILE"
 echo "| \`medium\` | \`100000\` |" >> "$OUTPUT_FILE"
 echo "| \`large\` | \`1000000\` |" >> "$OUTPUT_FILE"
 echo "| \`extra_large\` | \`10000000\` |" >> "$OUTPUT_FILE"
+echo "| \`extra_extra_large\` | \`100000000\` |" >> "$OUTPUT_FILE"
+echo "| \`massive\` | \`1000000000\` |" >> "$OUTPUT_FILE"
 echo "" >> "$OUTPUT_FILE"
 echo "# Compiler/Codegen Information" >> "$OUTPUT_FILE"
 echo "" >> "$OUTPUT_FILE"
@@ -141,6 +142,8 @@ mkdir ../resources
 ./generate_nucleotides.sh 100000 "../resources/nucleotides_medium.txt"
 ./generate_nucleotides.sh 1000000 "../resources/nucleotides_large.txt"
 ./generate_nucleotides.sh 10000000 "../resources/nucleotides_extra_large.txt"
+./generate_nucleotides.sh 100000000 "../resources/nucleotides_extra_extra_large.txt"
+./generate_nucleotides.sh 1000000000 "../resources/nucleotides_massive.txt"
 
 # Run all benchmarks by size first
 for SIZE in "${SIZES[@]}"; do
