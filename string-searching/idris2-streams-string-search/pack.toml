@@ -1,0 +1,10 @@
+[custom.all.idris2-streams-string-search]
+type = "local"
+path = "."
+ipkg = "idris2-streams-string-search.ipkg"
+test = "test/test.ipkg"
+
+[custom.all.idris2-streams-string-search-test]
+type = "local"
+path = "test"
+ipkg = "test.ipkg"

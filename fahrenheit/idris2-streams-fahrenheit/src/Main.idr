@@ -32,8 +32,9 @@ fahrenheit fp =
   |> unlines
   |> writeTo Stdout
 
-prog : List String -> AsyncStream Poll [Errno] Void
-prog []         =
+prog :  List String
+     -> AsyncStream Poll [Errno] Void
+prog []        =
   throw EINVAL
 prog (_::size) =
   case size of
